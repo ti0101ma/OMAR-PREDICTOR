@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>1XBET VIP Predictor - سوريا</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #060913;
+            --bg-card: rgba(13, 20, 38, 0.85);
+            --bg-card-hover: rgba(22, 33, 61, 0.95);
+            --border-clr: rgba(43, 131, 239, 0.15);
+            --border-blue: rgba(43, 131, 239, 0.4);
+            --accent-blue: #2b83ef;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --danger: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            background-color: #060913 !important;
+            color: var(--text-main);
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body {
+            background-image: 
+                radial-gradient(circle at 20% 15%, rgba(43, 131, 239, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 85%, rgba(14, 63, 135, 0.4) 0%, transparent 60%),
+                linear-gradient(135deg, #060913 0%, #0c1427 50%, #03050a 100%) !important;
+            background-attachment: fixed !important;
+        }
+
+        header {
+            width: 100%;
+            background: rgba(6, 9, 19, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-blue);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .vip-badge {
+            background: linear-gradient(135deg, #2b83ef, #104eab);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-weight: 800;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+        }
+
+        .brand-name {
+            font-weight: 900;
+            font-size: 1.15rem;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            text-transform: uppercase;
+        }
+        .brand-name span {
+            color: var(--accent-blue);
+            text-shadow: 0 0 10px rgba(43, 131, 239, 0.5);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ai-status-pill {
+            background: rgba(43, 131, 239, 0.1);
+            border: 1px solid rgba(43, 131, 239, 0.3);
+            padding: 6px 10px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .pulse-dot {
+            width: 7px; height: 7px; background: var(--accent-blue); border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-blue);
+            animation: pulseAnim 1.5s infinite;
+        }
+        @keyframes pulseAnim {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 12px var(--accent-blue); }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        .user-balance {
+            background: rgba(43, 131, 239, 0.15);
+            border: 1px solid rgba(43, 131, 239, 0.4);
+            padding: 8px 14px;
+            border-radius: 10px;
+            color: var(--accent-blue);
+            font-weight: 800;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            z-index: 1000;
+            position: relative;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px 15px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .winners-ticker-box {
+            background: var(--bg-card);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--border-blue);
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+        }
+
+        .ticker-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--accent-blue);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border-clr);
+            padding-bottom: 6px;
+        }
+
+        .ticker-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            max-height: 240px;
+            overflow: hidden;
+        }
+
+        .winner-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            padding: 6px 10px;
+            background: rgba(6, 9, 19, 0.6);
+            border-radius: 8px;
+            border: 1px solid rgba(43, 131, 239, 0.05);
+        }
+
+        .winner-item span { color: var(--text-main); font-weight: 700; }
+        .winner-item b { color: var(--accent-blue); font-weight: 800; }
+
+        #toast-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+        .toast-card {
+            background: rgba(13, 20, 38, 0.98);
+            border: 1px solid var(--border-blue);
+            border-radius: 12px;
+            padding: 12px 16px;
+            box-shadow: 0 10px 30px rgba(43,131,239,0.3);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 300px;
+            pointer-events: auto;
+        }
+        .toast-icon { font-size: 1.3rem; }
+        .toast-text { font-size: 0.75rem; line-height: 1.3; color: var(--text-muted); }
+        .toast-text b { color: var(--accent-blue); font-weight: 800; }
+
+        #dashboard { width: 100%; z-index: 5; }
+
+        .section-title {
+            color: var(--accent-blue);
+            font-size: 0.8rem;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 800;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .game-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--border-blue);
+            border-radius: 16px;
+            padding: 22px 12px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            z-index: 10;
+            position: relative;
+        }
+
+        .game-icon { font-size: 2.5rem; margin-bottom: 10px; }
+        .game-name { font-weight: 800; font-size: 1rem; margin-bottom: 6px; color: #fff; }
+        
+        .game-status { 
+            font-size: 0.7rem; 
+            color: var(--accent-blue); 
+            font-weight: 700; 
+            background: rgba(43, 131, 239, 0.1); 
+            border: 1px solid rgba(43, 131, 239, 0.3);
+            padding: 4px 10px; 
+            border-radius: 20px; 
+            display: inline-block; 
+        }
+
+        #gameplay { display: none; width: 100%; z-index: 5; }
+
+        .navigation-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .back-btn {
+            background: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border-blue);
+            padding: 8px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 700;
+            z-index: 10;
+            position: relative;
+        }
+
+        .bonus-progress-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-blue);
+            border-radius: 12px;
+            padding: 10px 14px;
+            margin-bottom: 12px;
+        }
+        .bonus-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--accent-blue);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        .progress-track {
+            width: 100%;
+            height: 5px;
+            background: rgba(6, 9, 19, 0.9);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent-blue), #fff);
+            transition: width 0.4s ease;
+        }
+
+        .game-screen-box {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-blue);
+            border-radius: 20px;
+            padding: 25px 15px;
+            text-align: center;
+            margin-bottom: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .aviator-val { font-size: 3.5rem; font-weight: 900; color: var(--accent-blue); margin: 10px 0; text-shadow: 0 0 15px rgba(43,131,239,0.4); }
+
+        .mines-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            max-width: 280px;
+            margin: 0 auto;
+        }
+        .mine-cell {
+            aspect-ratio: 1;
+            background: rgba(6, 9, 19, 0.8);
+            border: 1px solid var(--border-blue);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        .mine-cell.safe {
+            background: rgba(43, 131, 239, 0.25);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 10px rgba(43,131,239,0.3);
+        }
+
+        .apple-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-width: 260px;
+            margin: 0 auto;
+        }
+        .apple-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+        .apple-cell { background: rgba(6, 9, 19, 0.8); border: 1px solid var(--border-blue); border-radius: 8px; padding: 10px 0; text-align: center; opacity: 0.35; }
+        .apple-cell.highlight { background: rgba(43, 131, 239, 0.3); border-color: var(--accent-blue); opacity: 1; box-shadow: 0 0 10px rgba(43,131,239,0.3); }
+
+        .penalty-field {
+            background: linear-gradient(135deg, #060913, #16223d);
+            border: 2px solid var(--border-blue);
+            border-radius: 14px;
+            height: 160px;
+            position: relative;
+            max-width: 300px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .goal-target {
+            width: 48px; height: 48px; border: 2px dashed rgba(43,131,239,0.9); border-radius: 50%;
+            position: absolute; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+            background: rgba(43, 131, 239, 0.2);
+            box-shadow: 0 0 10px rgba(43,131,239,0.3);
+        }
+
+        .sync-badge {
+            background: rgba(43, 131, 239, 0.1); color: var(--accent-blue); border: 1px solid rgba(43, 131, 239, 0.35);
+            padding: 6px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; display: inline-block; margin-top: 15px;
+        }
+
+        .scanning-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(6, 9, 19, 0.92); backdrop-filter: blur(8px);
+            display: none; flex-direction: column; align-items: center; justify-content: center;
+            border-radius: 20px; z-index: 20;
+        }
+        .scanner-ring {
+            width: 45px; height: 45px; border: 3px solid rgba(43,131,239,0.2); border-top-color: var(--accent-blue);
+            border-radius: 50%; animation: spinRing 0.8s linear infinite; margin-bottom: 10px;
+        }
+        @keyframes spinRing { to { transform: rotate(360deg); } }
+
+        #modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(6, 9, 19, 0.9); backdrop-filter: blur(15px);
+            justify-content: center; align-items: center; z-index: 999999; padding: 20px;
+        }
+        .modal-content {
+            background: var(--bg-card); border: 1px solid var(--border-blue); border-radius: 20px; padding: 30px 20px; max-width: 360px; width: 100%; text-align: center;
+        }
+        .modal-title { color: var(--danger); font-size: 1.25rem; font-weight: 900; margin-bottom: 10px; }
+        .modal-text { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px; }
+        .promo-highlight {
+            background: rgba(43, 131, 239, 0.15); border: 1px dashed var(--accent-blue); color: var(--accent-blue);
+            padding: 6px; border-radius: 6px; font-weight: 800; margin: 8px 0; font-size: 1rem; letter-spacing: 1px;
+        }
+        .action-link {
+            background: linear-gradient(135deg, var(--accent-blue), #104eab); color: #fff; text-decoration: none; font-weight: 900;
+            padding: 14px; border-radius: 12px; display: block; font-size: 0.95rem; text-transform: uppercase; margin-top: 12px;
+            box-shadow: 0 8px 20px rgba(43,131,239,0.3);
+            z-index: 10;
+            position: relative;
+        }
+        .close-modal-btn { background: none; border: none; color: var(--text-muted); margin-top: 15px; cursor: pointer; font-size: 0.8rem; font-weight: 700; }
+        .main-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent-blue), #104eab);
+            color: #fff;
+            font-weight: 900;
+            padding: 16px;
+            border: none;
+            border-radius: 14px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 25px rgba(43, 131, 239, 0.4);
+            z-index: 10;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand">
+            <span class="vip-badge">1XBET</span>
+            <span class="brand-name">VIP <span>PREDICT</span></span>
+        </div>
+        <div class="header-right">
+            <div class="ai-status-pill">
+                <div class="pulse-dot"></div>
+                <span>AI: <strong id="accuracyRate">98.4</strong>%</span>
+            </div>
+            <div class="user-balance" onclick="playBeep(600, 0.05); openModal();" id="balanceDisplay">💰 50,000 ل.س</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="winners-ticker-box">
+            <div class="ticker-header">
+                <span>🏆 سجل الفائزين</span>
+            </div>
+            <div class="ticker-list" id="tickerList"></div>
+        </div>
+
+        <div id="dashboard">
+            <div class="section-title">⚡ اختر لعبة واستراتيجية الذكاء الاصطناعي</div>
+            <div class="games-grid">
+                <div class="game-card" onclick="playBeep(500, 0.05); openGame('Aviator')">
+                    <div class="game-icon">✈️</div>
+                    <div class="game-name">Aviator</div>
+                    <div class="game-status">تحليل المضاعف</div>
+                </div>
+                <div class="game-card" onclick="playBeep(500, 0.05); openGame('Apple Fortune')">
+                    <div class="game-icon">🍎</div>
+                    <div class="game-name">Apple Fortune</div>
+                    <div class="game-status">المسار الآمن</div>
+                </div>
+                <div class="game-card" onclick="playBeep(500, 0.05); openGame('Mines')">
+                    <div class="game-icon">💣</div>
+                    <div class="game-name">Mines 5x5</div>
+                    <div class="game-status">خريطة الألغام</div>
+                </div>
+                <div class="game-card" onclick="playBeep(500, 0.05); openGame('Penalty')">
+                    <div class="game-icon">⚽</div>
+                    <div class="game-name">Penalty</div>
+                    <div class="game-status">تنبؤ الهدف</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="gameplay">
+            <div class="navigation-top">
+                <button class="back-btn" onclick="playBeep(350, 0.05); goHome();">← قائمة الألعاب</button>
+                <span id="currentGameLabel" style="font-weight: 800; color: var(--accent-blue); font-size: 1rem;">Aviator</span>
+            </div>
+
+            <div class="bonus-progress-box">
+                <div class="bonus-info">
+                    <span>🔥 مكافأة إشارة VIP</span>
+                    <span id="progressText">المستوى 1 / 4</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" id="bonusProgressFill" style="width: 25%;"></div>
+                </div>
+            </div>
+
+            <div class="game-screen-box">
+                <div class="scanning-overlay" id="scanningOverlay">
+                    <div class="scanner-ring"></div>
+                    <div style="font-weight: 800; font-size: 0.8rem; color: var(--accent-blue); letter-spacing: 1px;">جاري حساب الذكاء الاصطناعي...</div>
+                </div>
+                <div id="game-content-area"></div>
+                <div class="sync-badge">⚡ خوارزمية عصبي نشطة</div>
+            </div>
+
+            <button class="main-btn" id="actionBtn" onclick="playBeep(700, 0.05); triggerPrediction();">توليد إشارة</button>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <div id="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-title">⚠️ حد المزامنة</div>
+            <div class="modal-text">
+                لقد نفد رصيدك التجريبي. لفتح إشارات VIP غير محدودة، قم بالتسجيل أو الإيداع باستخدام الرمز الترويجي:
+                <div class="promo-highlight">LER71</div>
+            </div>
+            <a href="https://reffpa.com/L?tag=d_6168958m_69917c_&site=6168958&ad=69917&r=registration" target="_blank" class="action-link">التفعيل على 1XBET</a>
+            <br>
+            <button class="close-modal-btn" onclick="playBeep(300, 0.04); closeModal();">إغلاق</button>
+        </div>
+    </div>
+
+    <script>
+        let audioCtx = null;
+        function playBeep(frequency, duration) {
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if(audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.value = frequency;
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e) {}
+        }
+
+        let currentGame = '';
+        let currentBalance = 50000;
+        let predictionClicks = 0;
+
+        const winnerNames = [
+            "محمد الأحمد", "عمر الخطيب", "أحمد الشام", "يوسف الحلاق", "خالد الدمشقي", 
+            "محمود الصالح", "زياد الطرطوسي", "إبراهيم الحلبي", "بلال حمصي", "سامر القاسمي"
+        ];
+        const winnerGames = ["Aviator", "Mines 5x5", "Apple Fortune", "Penalty"];
+        let winnersList = [];
+
+        function generateRandomWinnerObj() {
+            const name = winnerNames[Math.floor(Math.random() * winnerNames.length)];
+            const game = winnerGames[Math.floor(Math.random() * winnerGames.length)];
+            const amount = ((Math.floor(Math.random() * 85) + 15) * 1000).toLocaleString('ar-SY') + " ل.س";
+            return { name, game, amount };
+        }
+
+        function initWinners() {
+            for(let i=0; i<10; i++) {
+                winnersList.push(generateRandomWinnerObj());
+            }
+            renderWinners(false);
+        }
+
+        function renderWinners(isUpdate = false) {
+            const listContainer = document.getElementById('tickerList');
+            if(!listContainer) return;
+
+            listContainer.innerHTML = '';
+            winnersList.forEach((w, index) => {
+                const div = document.createElement('div');
+                div.className = 'winner-item';
+                if(isUpdate && index === 0) {
+                    div.classList.add('new-item');
+                }
+                div.innerHTML = `<span>${w.name} (${w.game})</span> <b>${w.amount}</b>`;
+                listContainer.appendChild(div);
+            });
+        }
+
+        function updateWinnersTicker() {
+            winnersList.unshift(generateRandomWinnerObj());
+            if(winnersList.length > 10) winnersList.pop();
+            renderWinners(true);
+        }
+
+        setInterval(updateWinnersTicker, 2000);
+        window.onload = initWinners;
+
+        function spawnToastNotification() {
+            const container = document.getElementById('toast-container');
+            if(!container) return;
+            const w = generateRandomWinnerObj();
+            const toast = document.createElement('div');
+            toast.className = 'toast-card';
+            toast.innerHTML = `
+                <div class="toast-icon">🎉</div>
+                <div class="toast-text">
+                    <b>${w.name}</b> (${w.game})<br>ربح للتو <b>${w.amount}</b>!
+                </div>
+            `;
+            container.appendChild(toast);
+            playBeep(880, 0.08);
+            setTimeout(() => { toast.remove(); }, 4000);
+        }
+        setInterval(spawnToastNotification, 7000);
+
+        setInterval(() => {
+            const el = document.getElementById('accuracyRate');
+            if(el) {
+                const randomAcc = (97 + Math.random() * 2.5).toFixed(1);
+                el.textContent = randomAcc;
+            }
+        }, 3500);
+
+        function updateBalanceUI() {
+            document.getElementById('balanceDisplay').textContent = `💰 ${currentBalance.toLocaleString('ar-SY')} ل.س`;
+        }
+
+        function openGame(gameName) {
+            currentGame = gameName;
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('gameplay').style.display = 'block';
+            document.getElementById('currentGameLabel').textContent = gameName;
+            predictionClicks = 0;
+            updateProgressUI();
+            renderGameInterface();
+        }
+
+        function goHome() {
+            document.getElementById('gameplay').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+        }
+
+        function updateProgressUI() {
+            const fill = document.getElementById('bonusProgressFill');
+            const txt = document.getElementById('progressText');
+            const step = (predictionClicks % 4);
+            const p = (step + 1) * 25;
+            if(fill) fill.style.width = `${p}%`;
+            if(txt) txt.textContent = `المستوى ${step + 1} / 4`;
+        }
+
+        function renderGameInterface() {
+            const area = document.getElementById('game-content-area');
+            if (currentGame === 'Aviator') {
+                area.innerHTML = `
+                    <div style="font-size:0.8rem; color:var(--text-muted); font-weight:700;">✈️ المضاعف الموصى به</div>
+                    <div class="aviator-val" id="aviatorVal">2.45x</div>
+                `;
+            } else if (currentGame === 'Mines') {
+                let gridHtml = '<div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:10px; font-weight:700;">💎 الخلايا الآمنة</div><div class="mines-grid">';
+                for(let i=0; i<25; i++) {
+                    gridHtml += `<div class="mine-cell" id="mine-${i}">⬜</div>`;
+                }
+                gridHtml += '</div>';
+                area.innerHTML = gridHtml;
+                generateMines();
+            } else if (currentGame === 'Apple Fortune') {
+                let appleHtml = '<div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:10px; font-weight:700;">🍎 المستويات الآمنة</div><div class="apple-rows">';
+                for(let r=0; r<5; r++) {
+                    appleHtml += '<div class="apple-row">';
+                    for(let c=0; c<5; c++) {
+                        appleHtml += `<div class="apple-cell" id="apple-${r}-${c}">🍎</div>`;
+                    }
+                    appleHtml += '</div>';
+                }
+                appleHtml += '</div>';
+                area.innerHTML = appleHtml;
+                generateApples();
+            } else if (currentGame === 'Penalty') {
+                area.innerHTML = `
+                    <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:10px; font-weight:700;">⚽ منطقة تسديد الذكاء الاصطناعي</div>
+                    <div class="penalty-field">
+                        <div class="goal-target" id="target" style="top: 25%; left: 38%;">🥅</div>
+                    </div>
+                `;
+                generatePenalty();
+            }
+        }
+
+        function triggerPrediction() {
+            if (currentBalance > 0) {
+                currentBalance -= 10000;
+                if (currentBalance < 0) currentBalance = 0;
+                updateBalanceUI();
+            }
+
+            if(currentBalance <= 0) {
+                openModal();
+                return;
+            }
+
+            const overlay = document.getElementById('scanningOverlay');
+            if(overlay) overlay.style.display = 'flex';
+
+            setTimeout(() => {
+                if(overlay) overlay.style.display = 'none';
+
+                predictionClicks++;
+                updateProgressUI();
+                playBeep(1200, 0.1);
+
+                if (currentGame === 'Aviator') {
+                    const multipliers = ['1.85x', '3.10x', '2.65x', '5.40x', '1.42x', '4.80x', '2.15x', '7.20x'];
+                    const val = multipliers[Math.floor(Math.random() * multipliers.length)];
+                    const elem = document.getElementById('aviatorVal');
+                    if(elem) {
+                        elem.style.opacity = '0';
+                        setTimeout(() => { elem.textContent = val; elem.style.opacity = '1'; }, 100);
+                    }
+                } else if (currentGame === 'Mines') {
+                    generateMines();
+                } else if (currentGame === 'Apple Fortune') {
+                    generateApples();
+                } else if (currentGame === 'Penalty') {
+                    generatePenalty();
+                }
+            }, 600);
+        }
+
+        function generateMines() {
+            for(let i=0; i<25; i++) {
+                const cell = document.getElementById(`mine-${i}`);
+                if(cell) {
+                    cell.className = 'mine-cell';
+                    cell.textContent = '⬜';
+                }
+            }
+            let safeIndexes = [];
+            while(safeIndexes.length < 5) {
+                let r = Math.floor(Math.random() * 25);
+                if(!safeIndexes.includes(r)) safeIndexes.push(r);
+            }
+            safeIndexes.forEach(idx => {
+                const cell = document.getElementById(`mine-${idx}`);
+                if(cell) {
+                    cell.classList.add('safe');
+                    cell.textContent = '⭐';
+                }
+            });
+        }
+
+        function generateApples() {
+            for(let r=0; r<5; r++) {
+                for(let c=0; c<5; c++) {
+                    const cell = document.getElementById(`apple-${r}-${c}`);
+                    if(cell) cell.classList.remove('highlight');
+                }
+                let randomCol = Math.floor(Math.random() * 5);
+                const goodCell = document.getElementById(`apple-${r}-${randomCol}`);
+                if(goodCell) goodCell.classList.add('highlight');
+            }
+        }
+
+        function generatePenalty() {
+            const positions = [
+                {top: '12%', left: '15%'},
+                {top: '12%', left: '72%'},
+                {top: '55%', left: '20%'},
+                {top: '55%', left: '68%'},
+                {top: '32%', left: '42%'}
+            ];
+            const pos = positions[Math.floor(Math.random() * positions.length)];
+            const target = document.getElementById('target');
+            if(target) {
+                target.style.top = pos.top;
+                target.style.left = pos.left;
+            }
+        }
+
+        function openModal() { document.getElementById('modal-overlay').style.display = 'flex'; }
+        function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; }
+    </script>
+</body>
+</html>
